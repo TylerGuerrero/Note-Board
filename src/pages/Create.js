@@ -1,27 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 // import SendIcon from '@material-ui/icons/Send';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import { makeStyles } from '@material-ui/core'
+import { FormControlLabel, makeStyles } from '@material-ui/core'
+import TextField from '@material-ui/core/TextField'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
 
 const useStyles = makeStyles({
-    btn: {
-        fontSize: 60,
-        backgroundColor: 'violet',
-        '&:hover': {
-            backgroundColor: 'blue'
-        }
-    },
-    title: {
-        textDecoration: 'underline',
-        marginBottom: 20
+    field: {
+        marginBottom: 20,
+        marginTop: 20,
+        display: 'block'
     }
 })
 
 const Create = () => {
     const classes = useStyles();
+    const [title, setTitle] = useState("")
+    const [details, setDetails] = useState("")
+    const [titleErr, setTitleError] = useState(false)
+    const [detailsErr, setDetailsError] = useState(false)
+    const [categories, setCategories] = useState("todos")
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        setTitleError(false);
+        setDetailsError(false);
+
+        if (title === "") {
+            setTitleError(true)
+        }
+
+        if (details === "") {
+            setDetailsError(true)
+        }
+
+        if (title && details) {
+            console.log(title, details, categories)
+            setTitle("")
+            setDetails("")
+            setCategories("")
+        } 
+    }
 
     return (
         <Container>
@@ -34,19 +60,58 @@ const Create = () => {
             >
             Create a New Note
             </Typography>
-            <Button
-                className={classes.btn}
-               // startIcon={<SendIcon />}
-                endIcon={<KeyboardArrowRightIcon />}
-                variant="contained"
+
+            <form noValidate autoCapitalize="off" onSubmit={handleSubmit}>
+                <TextField 
+                className={classes.field}
+                label="Note Title"
+                variant="outlined"
                 color="secondary"
-                type="submit"
-                disableElevation
-                onClick={() => console.log('clicked on me')}
-            >
-            Submit
-            </Button>
-            <br />
+                fullWidth
+                required
+                error={titleErr}
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                />
+
+                <TextField 
+                className={classes.field}
+                label="Details"
+                variant="outlined"
+                color="secondary"
+                multiline
+                error={detailsErr}
+                rows={4}
+                fullWidth
+                required
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
+                />
+
+
+                <FormLabel>Not Category</FormLabel>
+                <FormControl className={classes.field}>
+                    <RadioGroup value={categories} onChange={(e) => setCategories(e.target.value)}>
+                        <FormControlLabel value="money" control={<Radio />} label="Money"/>
+                        <FormControlLabel value="todos" control={<Radio />} label="Todos"/>  
+                        <FormControlLabel value="reminders" control={<Radio />} label="Reminders"/>
+                        <FormControlLabel value="work" control={<Radio />} label="Work"/>
+                    </RadioGroup>  
+                </FormControl> 
+    
+                <Button
+                    className={classes.btn}
+                    // startIcon={<SendIcon />}
+                    endIcon={<KeyboardArrowRightIcon />}
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                    // disableElevation
+                    onClick={() => console.log('clicked on me')}
+                >
+                Submit
+                </Button>
+            </form>
         </Container>
     )
 }
@@ -87,3 +152,5 @@ export default Create
             <AcUnitOutlinedIcon color="action" fontSize="small"/>
             <AcUnitOutlinedIcon color="error" fontSize="small"/>
             <AcUnitOutlinedIcon color="disabled" fontSize="small"/> */
+            /* <Radio value="hello"/>
+                    <Radio value="goodbye"/> */
