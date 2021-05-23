@@ -10,6 +10,7 @@ import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControl from '@material-ui/core/FormControl'
 import FormLabel from '@material-ui/core/FormLabel'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles({
     field: {
@@ -26,6 +27,7 @@ const Create = () => {
     const [titleErr, setTitleError] = useState(false)
     const [detailsErr, setDetailsError] = useState(false)
     const [categories, setCategories] = useState("todos")
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -43,6 +45,18 @@ const Create = () => {
 
         if (title && details) {
             console.log(title, details, categories)
+            const note = {title, details, categories};
+
+            fetch('http://localhost:8000/notes', {
+                method: 'POST',
+                headers: {'Content-type': 'application/json'},
+                body: JSON.stringify(note)
+            }).then((res) => {
+                history.push("/")
+            }).catch((err) => {
+                console.log(err);
+            })
+
             setTitle("")
             setDetails("")
             setCategories("")
