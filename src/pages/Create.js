@@ -102,7 +102,6 @@ const Create = () => {
                 onChange={(e) => setDetails(e.target.value)}
                 />
 
-
                 <FormLabel>Not Category</FormLabel>
                 <FormControl className={classes.field}>
                     <RadioGroup value={categories} onChange={(e) => setCategories(e.target.value)}>
