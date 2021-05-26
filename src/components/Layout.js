@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemIcon, ListItemText, makeStyles } from '@material-ui/core'
+import { List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
@@ -6,23 +6,29 @@ import { useHistory, useLocation } from 'react-router'
 
 const drawerWidth = 240
 
-const useStyles = makeStyles({
-    page: {
-        backgroundColor: "#f9f9f9",
-        width: '100%'
-    },
-    drawer: {
-        width: drawerWidth
-    },
-    drawerPaper: {
-        width: drawerWidth
-    },
-    root: {
-        display: 'flex'
-    },
-    active: {
-        background: "#f4f4f4"
-    }
+const useStyles = makeStyles((theme) => {
+    return {
+        page: {
+            backgroundColor: "#f9f9f9",
+            width: '100%',
+            padding: theme.spacing(3)
+        },
+        drawer: {
+            width: drawerWidth
+        },
+        drawerPaper: {
+            width: drawerWidth
+        },
+        root: {
+            display: 'flex'
+        },
+        active: {
+            background: "#f4f4f4"
+        },
+        title: {
+            padding: theme.spacing(2)
+        }
+    }   
 })
 
 const Layout = ({ children }) => {
@@ -51,6 +57,11 @@ const Layout = ({ children }) => {
             anchor="left"
             classes={{paper: classes.drawerPaper}}
             >
+                <div>
+                    <Typography className={classes.title} variant="h5">
+                        Tyler Notes
+                    </Typography>
+                </div>
                 <List>
                     {menuItems.map((item, index) => {
                         return (
