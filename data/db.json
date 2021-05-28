@@ -21,8 +21,14 @@
     {
       "title": "grewgtre",
       "details": "wgtrewtr",
-      "categories": "reminders",
+      "category": "reminders",
       "id": 4
+    },
+    {
+      "title": "greaqgreqa",
+      "details": "greqreq",
+      "category": "money",
+      "id": 5
     }
   ]
 }

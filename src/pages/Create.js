@@ -26,7 +26,7 @@ const Create = () => {
     const [details, setDetails] = useState("")
     const [titleErr, setTitleError] = useState(false)
     const [detailsErr, setDetailsError] = useState(false)
-    const [categories, setCategories] = useState("todos")
+    const [category, setCategory] = useState("todos")
     const history = useHistory();
 
     const handleSubmit = (e) => {
@@ -44,8 +44,8 @@ const Create = () => {
         }
 
         if (title && details) {
-            console.log(title, details, categories)
-            const note = {title, details, categories};
+            console.log(title, details, category)
+            const note = {title, details, category};
 
             fetch('http://localhost:8000/notes', {
                 method: 'POST',
@@ -59,7 +59,7 @@ const Create = () => {
 
             setTitle("")
             setDetails("")
-            setCategories("")
+            setCategory("")
         } 
     }
 
@@ -104,7 +104,7 @@ const Create = () => {
 
                 <FormLabel>Not Category</FormLabel>
                 <FormControl className={classes.field}>
-                    <RadioGroup value={categories} onChange={(e) => setCategories(e.target.value)}>
+                    <RadioGroup value={category} onChange={(e) => setCategory(e.target.value)}>
                         <FormControlLabel value="money" control={<Radio />} label="Money"/>
                         <FormControlLabel value="todos" control={<Radio />} label="Todos"/>  
                         <FormControlLabel value="reminders" control={<Radio />} label="Reminders"/>

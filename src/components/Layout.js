@@ -1,8 +1,9 @@
-import { List, ListItem, ListItemIcon, ListItemText, makeStyles, Typography } from '@material-ui/core'
+import { AppBar, Avatar, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography } from '@material-ui/core'
 import React from 'react'
 import Drawer from '@material-ui/core/Drawer'
 import { AddCircleOutlineOutlined, SubjectOutlined } from '@material-ui/icons'
 import { useHistory, useLocation } from 'react-router'
+import { format } from 'date-fns'
 
 const drawerWidth = 240
 
@@ -27,6 +28,16 @@ const useStyles = makeStyles((theme) => {
         },
         title: {
             padding: theme.spacing(2)
+        },
+        appbar: {
+            width: `calc(100% - ${drawerWidth}px)`
+        },
+        toolbar: theme.mixins.toolbar,
+        date: {
+            flexGrow: 1
+        },
+        avatar: {
+            marginLeft: theme.spacing(2)
         }
     }   
 })
@@ -51,6 +62,20 @@ const Layout = ({ children }) => {
     
     return (
         <div className={classes.root}>
+            <AppBar 
+            className={classes.appbar}
+            elevation={0}
+            >
+                <Toolbar>
+                    <Typography variant="body1" className={classes.date}>
+                       Today is {format(new Date(), 'do MMM Y')}
+                    </Typography>
+                    <Typography>
+                         Tyler
+                    </Typography>
+                    <Avatar src="/logo192.png" className={classes.avatar}/>
+                </Toolbar>
+            </AppBar>
             <Drawer 
             className={classes.drawer}
             variant="permanent"
@@ -79,6 +104,7 @@ const Layout = ({ children }) => {
                 </List>
             </Drawer>
             <div className={classes.page}>
+                <div className={classes.toolbar}></div>
                 {children}
             </div>  
         </div>

@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid'
 // import Paper from '@material-ui/core/Paper'
 import { Container } from '@material-ui/core'
 import NoteCard from '../components/NoteCard'
+import Masonry from 'react-masonry-css'
 
 const Notes = () => {
     const [loading, setLoading] = useState(true) 
@@ -40,18 +41,28 @@ const Notes = () => {
         )
     }
 
+    const breakPoints = {
+        default: 3,
+        1100: 2,
+        700: 1
+    }
+
     return (
         <Container>
             {loading && <p>It is loading right now</p>}
-            <Grid container spacing={3}>
+            <Masonry
+                breakpointCols={breakPoints}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column"
+            >
                 {notes && notes.map((note) => {
                     return (
-                        <Grid key={note.id} item xs={12} sm={6} md={3}>
+                        <div key={note.id}>
                             <NoteCard note={note} handleDelete={handleDelete}/>   
-                        </Grid>
+                        </div>
                     )
                 })}
-            </Grid>
+            </Masonry>
             {error && <p> error: {error} </p>}
         </Container>
     )
